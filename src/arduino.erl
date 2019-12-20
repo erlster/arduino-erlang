@@ -198,7 +198,7 @@ init([Conf]) ->
     DiPortOffset = proplists:get_value(digital_port_offset, Conf, 0),
 
     case file:open(Device, [read]) of
-	{error, eisdir} -> %% device file exist
+	{ok, _IoDevice} -> %% device file exist
 	    Pid = serial:start([{speed, Speed}, {open, Device}]),
 	    ets:new(arduino_digital, [ordered_set, protected, named_table]),
 	    ets:new(arduino_analog,  [ordered_set, protected, named_table]),
